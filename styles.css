@@ -49,6 +49,16 @@
     padding: 10px;
 }
 
+.imagebutton {
+    height: 110px;
+    width: 110px;
+    margin: 0px 40px 0px 40px;
+}
+
+.center {
+    margin: auto;
+}
+
 .left {
     float: left;
 }
