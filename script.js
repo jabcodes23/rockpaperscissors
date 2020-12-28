@@ -35,7 +35,11 @@ function playRound() {
 
     if(playerScore == 5 || cpuScore == 5) {
         let winner = (playerScore > cpuScore) ? "Player" : "Computer";
-        document.getElementById("round_update").innerHTML = `The final score is Player: ${playerScore}, Computer: ${cpuScore}....so the winner is ${winner}!`;
+        document.getElementById("round_update").innerHTML = `You threw ${player}. CPU threw ${cpu}.<br>The final score is Player: ${playerScore}, Computer: ${cpuScore} so the winner is ${winner}!<br>Click a piece to play again.`;
+        document.getElementById("player_score").innerHTML = '';
+        document.getElementById("cpu_score").innerHTML = '';
+        playerScore = 0;
+        cpuScore = 0;
     }
 }
 
