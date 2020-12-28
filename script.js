@@ -1,55 +1,41 @@
 let playerScore = 0;
 let cpuScore = 0;
+let result;
 
-let rockImg = 'https://images.homedepot-static.com/productImages/23d91e85-aa47-4200-91d5-5fe314e0da98/svn/backyard-x-scapes-fake-rocks-knt-rb1-c3_1000.jpg';
-let paperImg = 'https://media.istockphoto.com/vectors/crumpled-paper-texture-white-battered-paper-background-white-empty-vector-id960504202?k=6&m=960504202&s=612x612&w=0&h=Zjt5u788AtgEPWDVct5pe5DKSxFPzJtAzKmP5DATa1Q=';
-let scissorsImg = 'https://www.ikea.com/us/en/images/products/sy-scissors__0112301_PE263788_S5.JPG?f=sg';
+document.getElementById('rock').onclick = playRound;
+document.getElementById('paper').onclick = playRound;
+document.getElementById('scissors').onclick = playRound;
 
-// console.log(game());
-
-document.getElementById("rock").onclick = function() {
-  console.log('rock tapped')
-  document.getElementById("player_piece").src = 'https://images.homedepot-static.com/productImages/23d91e85-aa47-4200-91d5-5fe314e0da98/svn/backyard-x-scapes-fake-rocks-knt-rb1-c3_1000.jpg';
-};
-
-
-function throwPaper() {
-  document.getElementById("demo").innerHTML = "Hello World";
-}
-
-function throwScissors() {
-  document.getElementById("demo").innerHTML = "Hello World";
-}
-
-function game() {
-    while(playerScore + cpuScore < 5) {
-        console.log(playRound(prompt("Rock, paper, or scissors?", ""), computerPlay()));
-    }
-
-    let winner = (playerScore > cpuScore) ? "Player" : "Computer";
-    return `The final score is Player: ${playerScore}, Computer: ${cpuScore}....so the winner is ${winner}!`;
-}
-
-function computerPlay () {
-    const objectThrown = ["Rock", "Paper", "Scissors"];
+function computerPlay() {
+    const objectThrown = ["rock", "paper", "scissors"];
     const random = Math.floor(Math.random() * objectThrown.length);
     return objectThrown[random];
 }
 
-function playRound (player, cpu) {
-    player = player.toLowerCase();
-    cpu = cpu.toLowerCase();
+function playRound() {
+    player = this.id;
+    cpu = computerPlay();
 
     if ((player == "rock" && cpu == "paper") || 
         (player == "paper" && cpu == "scissors") || 
         (player == "scissors" && cpu == "rock")) {
         cpuScore++;
-        return `Sorry, you lose, ${cpu} beats ${player}. Score: Player - ${playerScore}, Computer - ${cpuScore}`;
+        result = `Sorry, you lose, ${cpu} beats ${player}.`;
     } else if (player == cpu) {
-        return `Both players threw ${player}. Trying again...`;
+        result = `Both players threw ${player}. Trying again...`;
     } else {
         playerScore++;
-        return `You win, ${player} beats ${cpu}! Score: Player - ${playerScore}, Computer - ${cpuScore}`;
+        result = `You win, ${player} beats ${cpu}!`;
+    }
+
+    document.getElementById("round_update").innerHTML = `You threw ${player}.<br>CPU threw ${cpu}.<br><br>${result}`; 
+
+    document.getElementById("player_score").innerHTML = playerScore;
+    document.getElementById("cpu_score").innerHTML = cpuScore;
+
+    if(playerScore == 5 || cpuScore == 5) {
+        let winner = (playerScore > cpuScore) ? "Player" : "Computer";
+        document.getElementById("round_update").innerHTML = `The final score is Player: ${playerScore}, Computer: ${cpuScore}....so the winner is ${winner}!`;
     }
 }
 
